@@ -4,13 +4,15 @@ import axios from 'axios';
 
 class App extends Component {
   state = {
-    dogs: ['Jeff', 'Scooby']
+    // Set state to empty array
+    dogs: []
   }
 
   render() {
     return (
       <div className="App">
         {
+          // Display list of dogs
           this.state.dogs.map(dog => <p>{dog}</p>)
         }
       </div>
@@ -19,11 +21,15 @@ class App extends Component {
 
   componentDidMount() {
     // Grab our dogs from the API
-    // Make a request for a user with a given ID
     axios.get('/api/dogs')
-      .then(function (response) {
+      .then((response) => {
         console.log('Success!')
         console.log(response.data);
+        // Set state to array of dogs from API
+        this.setState({
+          dogs: response.data
+        })
+
       })
       .catch(function (error) {
         console.log('Whoops!')
